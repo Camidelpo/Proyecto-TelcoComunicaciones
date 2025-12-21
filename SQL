@@ -1,1 +1,106 @@
+-- ===============================
+-- 1. Exploración básica
+-- ===============================
+SELECT TOP 10 *
+FROM telco_customer_churn;
+
+SELECT COUNT(*) AS total_customers
+FROM telco_customer_churn;
+
+-- ===============================
+-- 2. Creación de vista limpia
+-- ===============================
+
+CREATE VIEW telco_clean AS
+SELECT
+    customerID,
+    gender,
+    SeniorCitizen,
+    tenure,
+    Contract,
+    PaymentMethod,
+    MonthlyCharges,
+    TRY_CAST(TotalCharges AS DECIMAL(10,2)) AS TotalCharges,
+    Churn  -- BIT (0 = No, 1 = Yes)
+FROM telco_customer_churn;
+GO
+
+-- ===============================
+-- 3. KPIs principales
+-- ===============================
+
+-- Churn Rate general
+SELECT
+    COUNT(*) AS total_customers,
+    SUM(CAST(Churn AS INT)) AS churned_customers,
+    CAST(
+        SUM(CAST(Churn AS INT)) * 100.0 / COUNT(*)
+        AS DECIMAL(5,2)
+    ) AS churn_rate_percentage
+FROM telco_clean;
+
+-- ===============================
+-- 4. Churn por tipo de contrato
+-- ===============================
+SELECT
+    Contract,
+    COUNT(*) AS total_customers,
+    SUM(CAST(Churn AS INT)) AS churned_customers,
+    CAST(
+        SUM(CAST(Churn AS INT)) * 100.0 / COUNT(*)
+        AS DECIMAL(5,2)
+    ) AS churn_rate_percentage
+FROM telco_clean
+GROUP BY Contract
+ORDER BY churn_rate_percentage DESC;
+
+-- ===============================
+-- 5. Churn por método de pago
+-- ===============================
+SELECT
+    PaymentMethod,
+    COUNT(*) AS total_customers,
+    SUM(CAST(Churn AS INT)) AS churned_customers,
+    CAST(
+        SUM(CAST(Churn AS INT)) * 100.0 / COUNT(*)
+        AS DECIMAL(5,2)
+    ) AS churn_rate_percentage
+FROM telco_clean
+GROUP BY PaymentMethod
+ORDER BY churn_rate_percentage DESC;
+
+-- ===============================
+-- 6. Impacto económico del churn
+-- ===============================
+SELECT
+    CAST(SUM(MonthlyCharges) AS DECIMAL(10,2)) AS estimated_monthly_revenue_lost
+FROM telco_clean
+WHERE Churn = 1;
+
+-- ===============================
+-- 7. Churn por antigüedad (Tenure)
+-- ===============================
+SELECT
+    CASE
+        WHEN tenure <= 12 THEN '0-12 months'
+        WHEN tenure BETWEEN 13 AND 24 THEN '13-24 months'
+        WHEN tenure BETWEEN 25 AND 48 THEN '25-48 months'
+        ELSE '49+ months'
+    END AS tenure_group,
+    COUNT(*) AS total_customers,
+    SUM(CAST(Churn AS INT)) AS churned_customers,
+    CAST(
+        SUM(CAST(Churn AS INT)) * 100.0 / COUNT(*)
+        AS DECIMAL(5,2)
+    ) AS churn_rate_percentage
+FROM telco_clean
+GROUP BY
+    CASE
+        WHEN tenure <= 12 THEN '0-12 months'
+        WHEN tenure BETWEEN 13 AND 24 THEN '13-24 months'
+        WHEN tenure BETWEEN 25 AND 48 THEN '25-48 months'
+        ELSE '49+ months'
+    END
+ORDER BY churn_rate_percentage DESC;
+
 
