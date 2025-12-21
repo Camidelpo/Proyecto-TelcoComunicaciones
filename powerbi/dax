@@ -1,0 +1,42 @@
+DAX
+
+  Churn Rate (%) = 
+DIVIDE(
+    CALCULATE(
+        COUNTROWS(telco_clean),
+        telco_clean[Churn] = TRUE()
+    ),
+    COUNTROWS(telco_clean),
+    0
+)
+
+  -------
+  Customers Churned = 
+CALCULATE(
+    COUNTROWS(telco_clean),
+    telco_clean[Churn] = TRUE()
+)
+  ------
+  Revenue Lost USD = 
+SUMX(
+    FILTER(
+        telco_clean,
+        telco_clean[Churn] = TRUE()
+    ),
+    telco_clean[MonthlyCharges]
+)
+  ------
+  Total customers = countrows (telco_clean)
+
+  ------
+
+  COLUMNA CALCULADA
+
+  Tenure Group = 
+SWITCH(
+    TRUE(),
+    telco_clean[tenure] <= 12, "0-12 months",
+    telco_clean[tenure] <= 24, "13-24 months",
+    telco_clean[tenure] <= 48, "25-48 months",
+    "49+ months"
+)
