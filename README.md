@@ -8,10 +8,10 @@ ________________________________________
 # Objetivo
 Analizar el churn de clientes para:
 
-•	Identificar los segmentos con mayor probabilidad de baja
-•	Comprender los factores asociados al churn
-•	Cuantificar el impacto económico de la pérdida de clientes
-•	Proveer insights accionables para estrategias de retención
+* Identificar los segmentos con mayor probabilidad de baja
+*	Comprender los factores asociados al churn
+*	Cuantificar el impacto económico de la pérdida de clientes
+*	Proveer insights accionables para estrategias de retención
 ________________________________________
 # Metodología
 
