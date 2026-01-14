@@ -7,12 +7,14 @@ Este proyecto simula un escenario real de negocio donde el equipo de datos debe 
 ________________________________________
 # Objetivo
 Analizar el churn de clientes para:
+
 •	Identificar los segmentos con mayor probabilidad de baja
 •	Comprender los factores asociados al churn
 •	Cuantificar el impacto económico de la pérdida de clientes
 •	Proveer insights accionables para estrategias de retención
 ________________________________________
 # Metodología
+
 •	Exploración y limpieza de datos utilizando SQL Server
 •	Análisis descriptivo de variables clave (contrato, método de pago, antigüedad)
 •	Definición de KPIs orientados a negocio
@@ -20,6 +22,7 @@ ________________________________________
 •	Enfoque analítico orientado a la toma de decisiones
 ________________________________________
 # KPIs Analizados
+
 •	Churn Rate (%)
 •	Clientes dados de baja
 •	Ingreso mensual estimado perdido
@@ -28,6 +31,7 @@ ________________________________________
 •	Churn por antigüedad del cliente
 ________________________________________
 # Tecnologías
+
 •	SQL Server (SSMS) – limpieza y análisis de datos
 •	Power BI Desktop & Service – modelado, visualización y publicación
 •	DAX – cálculo de métricas y KPIs
@@ -37,6 +41,7 @@ El dashboard presenta una vista ejecutiva e interactiva del churn, permitiendo f
  
 ________________________________________
 # Conclusiones
+
 •	El churn se concentra principalmente en clientes con contratos mensuales y baja antigüedad, lo que indica que la pérdida ocurre en etapas tempranas del ciclo de vida.
 •	Existe una ventana crítica durante los primeros meses, donde una activación y acompañamiento insuficientes incrementan la probabilidad de cancelación.
 •	Algunos métodos de pago presentan tasas de churn más elevadas, lo que sugiere fricción operativa o fallas en el proceso de cobro.
